@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+:root {
+  --black: #0f0000;
+  --white: #f6efed;
+  --red: #ff2b2b;
+  --red-3: #e5524a;
+  --crimson: #b80000;
+  --liquid-pink: #ffb3b3;
+  --cyan-0: #45e0ea;
+  --cyan-1: #1497ac;
+  --ink: #ffffff;
+  --muted: rgba(255, 255, 255, 0.56);
+  --rule: rgba(255, 255, 255, 0.14);
+  --gutter: clamp(20px, 3.2vw, 44px);
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease-reveal: cubic-bezier(0.18, 0.66, 0.18, 1);
+  --ease-appear: cubic-bezier(0.11, 0.06, 0.18, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--black);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--ink);
+  overflow-x: hidden;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+::selection {
+  background: var(--red-3);
+  color: #ffffff;
+}
+
+/* Tone blocks matching melon.studio alternating black / white chapters */
+[data-tone="white"] {
+  background: var(--white);
+  color: var(--black);
+  --section-ink: var(--black);
+  --section-muted: rgba(15, 0, 0, 0.58);
+  --section-rule: rgba(15, 0, 0, 0.14);
+}
+
+[data-tone="black"] {
+  background: var(--black);
+  color: var(--ink);
+  --section-ink: var(--ink);
+  --section-muted: rgba(255, 255, 255, 0.56);
+  --section-rule: rgba(255, 255, 255, 0.14);
+}
+
+.font-mono-meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.font-display-editorial {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: -0.045em;
+}
+
+.font-wordmark {
+  font-family: var(--font-display);
+}
+
+/* Rolling double-layer text hover animation (.f-roll) */
+.f-roll {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.f-roll__in {
+  display: inline-flex;
+  flex-direction: column;
+  transition: transform 0.42s var(--ease-reveal);
+}
+
+.f-roll__t {
+  display: block;
+  line-height: 1.15;
+}
+
+.f-roll__t--b {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
+.group:hover .f-roll__in,
+a:hover .f-roll__in,
+button:hover .f-roll__in {
+  transform: translateY(-100%);
+}
+
+/* Double arrow slide animation */
+.f-arr-wrap {
+  position: relative;
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+}
+
+.f-arr {
+  transition: transform 0.38s var(--ease-reveal);
+}
+
+.f-arr--b {
+  position: absolute;
+  top: 0;
+  left: -100%;
+}
+
+.group:hover .f-arr--a,
+button:hover .f-arr--a,
+a:hover .f-arr--a {
+  transform: translateX(100%);
+}
+
+.group:hover .f-arr--b,
+button:hover .f-arr--b,
+a:hover .f-arr--b {
+  transform: translateX(100%);
+}
+
+/* Underline reveal for nav links */
+.f-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.f-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.36s var(--ease-reveal);
+}
+
+.f-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Hero atmospheric wave + ember glow */
+@keyframes waveDrift {
+  0% {
+    transform: translate3d(-4%, -2%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, 3%, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(-4%, -2%, 0) scale(1);
+  }
+}
+
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.hero-wave-layer {
+  animation: waveDrift 16s ease-in-out infinite;
+}
+
+.hero-ember-pulse {
+  animation: pulseSlow 6s ease-in-out infinite;
+}
+
+/* Subtle horizontal scroll ribbon with clean scrollbar */
+.work-ribbon {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.work-ribbon::-webkit-scrollbar {
+  height: 6px;
+}
+
+.work-ribbon::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.work-ribbon::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+}
+
+/* Subtle reveal transition */
+@keyframes fadeUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUpIn 0.75s var(--ease-appear) both;
+}
